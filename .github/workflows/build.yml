@@ -20,15 +20,17 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: 'platforms;android-34 build-tools;34.0.0 platform-tools'
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
       - name: Build Debug APK
-        run: ./gradlew :TMessagesProj_App:assembleDebug --no-daemon
+        run: ./gradlew :TMessagesProj:assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Telegram-Debug-APK
-          path: TMessagesProj_App/build/outputs/apk/debug/*.apk
+          path: TMessagesProj/build/outputs/apk/debug/*.apk
